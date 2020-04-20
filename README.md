@@ -1,11 +1,15 @@
 **jatter** is a simple PyQt5 bidirectional Chat Server Example. Using TcpSockets and Server one Server can connect using a GUI Interface (no while loop that is running forever....) to multiple clients.
 
-**Bringup**
+**Bringup Ubuntu**
 ```
 python server.py
 python client.py # Enter name Max
 python client.py # Enter name Hans
 ```
+
+**Bringup Windows exe**
+* Start the server.exe and client.exe from [here](https://drive.google.com/open?id=1iQAePmJFd7F629I1M9AqMQgBT9nhHLS7)
+
 ![pyqt5_simple_chatserver](example.png)
 
 
@@ -25,5 +29,11 @@ python client.py # Enter name Hans
 
 **Enable Port**
 Enable the port **8000** on your router.
+
 see e.g. [fritzbox](https://praxistipps.chip.de/portfreigabe-in-der-fritzbox-so-gehts_12449)
+
 ![port_freigabe](port_freigabe.png)
+
+**Win Example**
+
+![win_app](win_app.JPG)

@@ -35,13 +35,6 @@ class Client(QDialog):
         self.setWindowTitle("Client "+self.name)
         self.tcpSocket = QTcpSocket(self)
         self.blockSize = 0
-        self.makeRequest()
-        self.tcpSocket.readyRead.connect(self.dealCommunication)
-        self.tcpSocket.error.connect(self.displayError)
-
-        # send start message:
-        self.tcpSocket.waitForConnected(1000)
-        self.tcpSocket.write(bytes( self.name+","+"Server please init me with my name", encoding='ascii'))
 
         print("Enter server (open ip): Enter for using local host")
         aaa = input()
@@ -49,6 +42,14 @@ class Client(QDialog):
             self.ip = '127.0.0.1'
         else:
             self.ip = aaa
+
+        self.makeRequest()
+        self.tcpSocket.readyRead.connect(self.dealCommunication)
+        self.tcpSocket.error.connect(self.displayError)
+
+        # send start message:
+        self.tcpSocket.waitForConnected(1000)
+        self.tcpSocket.write(bytes( self.name+","+"Server please init me with my name", encoding='ascii'))
 
     def send_msg(self):
         print("inside send_msg")
