@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import QByteArray, QDataStream, QIODevice
 from PyQt5.QtWidgets import QApplication, QDialog, QPushButton, QLineEdit, QVBoxLayout, QLabel
 from PyQt5.QtNetwork import QHostAddress, QTcpServer
+import socket
 
 ### Copyright
 # @Author Markus Lamprecht (www.simact.de), 2020.04.20
@@ -17,6 +18,8 @@ class Server(QDialog):
         playbtn.move(10, 10)
         playbtn.clicked.connect(self.send_msg)
 
+        self.label1 = QLabel("");
+
         self.label = QLabel("Received Messages from Clients appear here");
         self.label.setWordWrap(1);
 
@@ -27,6 +30,7 @@ class Server(QDialog):
         self.resize(600,300)
 
         layout = QVBoxLayout()
+        layout.addWidget(self.label1)
         layout.addWidget(self.label)
         layout.addWidget(self.textbox)
         layout.addWidget(playbtn)
@@ -35,11 +39,12 @@ class Server(QDialog):
         self.tcpServer   = None
         self.clientConnections= []
         self.blockSize = 0
+        self.getIP()
 
     def sessionOpened(self):
         self.tcpServer = QTcpServer(self)
         PORT = 8000
-        address = QHostAddress('127.0.0.1')
+        address = QHostAddress('127.0.0.1') # e.g. use your server ip 192.144.178.26
         if not self.tcpServer.listen(address, PORT):
             print("cant listen!")
             self.close()
@@ -97,6 +102,15 @@ class Server(QDialog):
                 name = None
             if name is not None:
                 self.label.setText(self.label.text()+"\n"+name+"\t"+message)
+
+    def getIP(self):
+        hostname = socket.gethostname()
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_address = s.getsockname()[0]
+        print(ip_address, hostname)
+        self.label1.setText(hostname+" "+str(ip_address))
+        return ip_address, hostname
 
     def serverInputCommunication(self):
         print("serverInputCommunication")

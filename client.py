@@ -49,7 +49,7 @@ class Client(QDialog):
         self.tcpSocket.write(bytes( self.name+","+self.textbox.text(), encoding='ascii'))
 
     def makeRequest(self):
-        HOST = '127.0.0.1'
+        HOST = '127.0.0.1' # for online use e.g. from server 192.144.178.26
         PORT = 8000
         self.tcpSocket.connectToHost(HOST, PORT, QIODevice.ReadWrite)
 
