@@ -39,12 +39,12 @@ class Server(QDialog):
         self.tcpServer   = None
         self.clientConnections= []
         self.blockSize = 0
-        self.getIP()
+        self.ip, _ = self.getIP()
 
     def sessionOpened(self):
         self.tcpServer = QTcpServer(self)
         PORT = 8000
-        address = QHostAddress('127.0.0.1') # e.g. use your server ip 192.144.178.26
+        address = QHostAddress(self.ip) # e.g. use your server ip 192.144.178.26
         if not self.tcpServer.listen(address, PORT):
             print("cant listen!")
             self.close()
@@ -108,8 +108,8 @@ class Server(QDialog):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
         ip_address = s.getsockname()[0]
-        print(ip_address, hostname)
-        self.label1.setText(hostname+" "+str(ip_address))
+        print(ip_address, hostname, "<<localhost")
+        self.label1.setText("This PC:"+ hostname+" "+str(ip_address))
         return ip_address, hostname
 
     def serverInputCommunication(self):

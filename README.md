@@ -14,13 +14,16 @@ python client.py # Enter name Hans
 
 
 **Tests via Internet**
-* Adjust Line 52 in client.py:
-```
-        HOST = '127.0.0.1' # for online use e.g. from server 192.144.178.26
-```
-* Adjust Line 47 in server.py:
-```
-        address = QHostAddress('127.0.0.1') # e.g. use your server ip 192.144.178.26
-```
-* Use one pc `start server.py`
-* use other pc with mobile phone hotspot (not same wlan) `start client.py`
+* Enable port forwarding (see image below for fritzbox)
+* Go [here](http://checkip.dyndns.org/) *note your open IP address*
+  * It should be something like: 87.163.**.***
+  * it is not localhost which might be similar to 192.168.178.**
+* Use one pc `python server.py`
+* use other pc with mobile phone hotspot (not same wlan) `python client.py` enter *ip*
+* start sending messages :)
+
+
+**Enable Port**
+Enable the port **8000** on your router.
+see e.g. [fritzbox](https://praxistipps.chip.de/portfreigabe-in-der-fritzbox-so-gehts_12449)
+![port_freigabe](port_freigabe.png)
